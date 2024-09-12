@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% if view.object %}Изменить {% else %}Новый документ {% endif %}</title>
+</head>
+<body>
+    <h1>{% if view.object %}Изменить: {{ view.object.title }}{% else %}Новый документ{% endif %}</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        {% if view.object %}
+        <button type="submit">Изменить</button>
+        {% else %}
+        <button type="submit">Сохранить</button>
+        {% endif %}
+    </form>
+
+    <a href="{% url 'big_library:document_list' %}">На главную</a>
+</body>
+</html>

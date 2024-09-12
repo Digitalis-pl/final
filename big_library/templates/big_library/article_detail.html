@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ object.title }}</title>
+</head>
+<body>
+    <h1>{{ object.title }}</h1>
+
+    <p><strong>Описание:</strong> {{ object.description }}</p>
+    <p><strong>Текст статьи:</strong> {{ object.content }}</p>
+
+    <a href="{% url 'big_library:document_update' object.pk %}">Изменить</a> |
+    <a href="{% url 'big_library:document_delete' object.pk %}">удалить</a>
+
+    <a href="{% url 'big_library:document_list' %}">На главную</a>
+</body>
+</html>

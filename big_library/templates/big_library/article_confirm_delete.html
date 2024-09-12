@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Удаление статьи</title>
+</head>
+<body>
+    <h1>Удалить "{{ object.title }}"?</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Удалить</button>
+        <a href="{{ document.get_absolute_url }}">Отмена</a>
+    </form>
+
+    <a href="{% url 'big_library:document_list' %}">На главную</a>
+</body>
+</html>

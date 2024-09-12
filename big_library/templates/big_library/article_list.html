@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Библиотека</title>
+</head>
+<body>
+    <h1>Документы</h1>
+
+    <form method="get">
+        {{ form.as_p }}
+        <button type="submit">Искать</button>
+    </form>
+
+    <h2>Результаты:</h2>
+    {% if search_results %}
+        <ul>
+            {% for result in search_results %}
+                <li>
+                    <a href="{% url 'big_library:document_detail' result.meta.id %}">{{ result.title }}</a> - {{ result.description }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>По запросу ничего не найдено.</p>
+    {% endif %}
+
+    <!-- Список всех документов -->
+    <h2>Все документы:</h2>
+
+    <a href="{% url 'big_library:document_create' %}">Создать документ</a>
+
+    <ul>
+        {% for object in object_list %}
+            <li>
+                <a href="{% url 'big_library:document_detail' object.pk %}" >{{ object.title }}</a> - {{ object.description }}
+            </li>
+        {% endfor %}
+    </ul>
+
+</body>
+</html>
