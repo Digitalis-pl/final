@@ -16,7 +16,9 @@
         <ul>
             {% for result in search_results %}
                 <li>
-                    <a href="{% url 'big_library:document_detail' result.meta.id %}">{{ result.title }}</a> - {{ result.description }}
+                    <p>{{ result.rubrics }}</p>
+                    <p>{{ result.created_date }}</p>
+                    <a href="{% url 'big_library:document_detail' result.pk %}">{{ result.title }}</a> - {{ result.description }}
                 </li>
             {% endfor %}
         </ul>

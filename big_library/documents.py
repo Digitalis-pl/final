@@ -14,4 +14,4 @@ class ArticleDocument(Document):
 
     class Django:
         model = Article
-        fields = ['title', 'description', 'content']
+        fields = ['id', 'title', 'description', 'text', 'rubrics', 'created_date']

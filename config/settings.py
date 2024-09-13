@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django_elasticsearch_dsl',
 
     'big_library',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -137,3 +138,4 @@ ELASTICSEARCH_DSL = {
     },
 }
 
+AUTH_USER_MODEL = 'users.User'

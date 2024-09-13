@@ -7,18 +7,18 @@ from big_library.models import Article
 class StyleFormMixin:
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        for fild_name, fild in self.fields.items():
-            if isinstance(fild, BooleanField):
-                fild.widget.attrs['class'] = "form-check-input"
+        for field_name, field in self.fields.items():
+            if isinstance(field, BooleanField):
+                field.widget.attrs['class'] = "form-check-input"
             else:
-                fild.widget.attrs['class'] = "form-control"
+                field.widget.attrs['class'] = "form-control"
 
 
 class DocumentSearchForm(forms.Form):
-    query = forms.CharField(label='Search', max_length=255)
+    query = forms.CharField(label='Поиск', max_length=255)
 
 
 class ArticleForm(StyleFormMixin, ModelForm):
     class Meta:
         model = Article
-        fields = ['title', 'description', 'content']
+        fields = ['rubrics', 'title', 'description', 'text',]
