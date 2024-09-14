@@ -1,5 +1,3 @@
-version: "3"
-
 services:
   db:
     image: postgres:16-alpine
@@ -21,27 +19,40 @@ services:
     tty: true
     ports:
       - "8000:8000"
-    command: sh -c "python manage.py migrate && python manage.py search_index --rebuild && python manage.py csu && python manage.py runserver 0.0.0.0:8000"
+    command: sh -c "python manage.py migrate && yes | python manage.py search_index --rebuild && python manage.py csu && python manage.py runserver 0.0.0.0:8000"
     depends_on:
       db:
         condition: service_healthy
-      elasticsearch:
+      elastic:
         condition: service_healthy
     volumes:
       - .:/app
     env_file:
       - .env
-  elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:8.31.0
-    environment:
-      - discovery.type=single-node
-      - xpack.security.enabled=false
+  elastic:
+    container_name: elastic
+    restart: always
+    image: elasticsearch:7.17.6
+    env_file:
+      - .env
     volumes:
-      - esdata:/usr/share/elasticsearch/test_data
+      - elastic-data:/usr/share/elasticsearch/data
+      - ./elastic:/usr/share/elasticsearch/config/hunspell
     ports:
       - "9200:9200"
+    environment:
+      - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - xpack.security.enabled=false
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -s http://localhost:9200/_cluster/health | grep '\"status\":\"green\"' || exit 1" ]
+      interval: 10s
+      retries: 5
+      timeout: 5s
+
 
 
 volumes:
   pg_data:
-  esdata:
+  elastic-data:
+    driver: local

@@ -8,11 +8,11 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.12"
 django = "4.2.2"
-psycopg2 = "^2.9.9"
 django-elasticsearch-dsl = "^8.0"
 python-dotenv = "^1.0.1"
 elasticsearch = "^8.15.1"
 elasticsearch-dsl = "^8.15.2"
+psycopg2-binary = "^2.9.9"
 
 
 [build-system]
